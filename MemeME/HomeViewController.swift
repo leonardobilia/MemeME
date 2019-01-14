@@ -132,8 +132,6 @@ class HomeViewController: UIViewController {
         return image ?? UIImage()
     }
     
-    
-    
     fileprivate func pickerHandler(_ sourceType: UIImagePickerController.SourceType) {
         self.returnKeyboard()
         let picker = UIImagePickerController()

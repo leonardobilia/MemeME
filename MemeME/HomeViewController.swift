@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 2
         label.textColor = UIColor.white
+        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.systemFont(ofSize: 32, weight: UIFont.Weight.black)
         label.dropShadow()
@@ -57,6 +58,7 @@ class HomeViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 2
         label.textColor = UIColor.white
+        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.systemFont(ofSize: 32, weight: UIFont.Weight.black)
         label.dropShadow()
@@ -103,6 +105,11 @@ class HomeViewController: UIViewController {
     @objc fileprivate func shareHandler() {
         let image = takeScreenshot(view: memeImageView)
         let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        activity.completionWithItemsHandler = { activity, success, items, error in
+            if success {
+                self.resetHandler()
+            }
+        }
         DispatchQueue.main.async {
             activity.modalPresentationStyle = .popover
             self.present(activity, animated: true, completion: nil)
@@ -144,6 +151,14 @@ class HomeViewController: UIViewController {
             self.present(picker, animated: true, completion: nil)
             picker.popoverPresentationController?.barButtonItem = self.navigationItem.leftBarButtonItem
         }
+    }
+    
+    fileprivate func resetHandler() {
+        topCaptionTextField.text = nil
+        bottomCaptionTextField.text = nil
+        memeImageView.image = nil
+        topCaptionLabel.text = nil
+        bottomCaptionLabel.text = nil
     }
     
     fileprivate func keyboardHandler() {
